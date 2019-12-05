@@ -1,9 +1,42 @@
-module Day1 exposing (Day1, solve)
+module Day1 exposing (..)
+
+import Browser
+import Html exposing (Html, div, h1, p, text)
 
 
-type alias Day1 =
-    { answer : String
+main =
+    Browser.sandbox { init = init, update = update, view = view }
+
+
+init : Model
+init =
+    { test1 = parseData testData1 |> calculateFuel |> String.fromInt
+    , test2 = parseData testData2 |> calculateFuel |> String.fromInt
+    , answer = parseData actualData |> calculateFuel |> String.fromInt
     }
+
+
+type alias Model =
+    { test1 : String
+    , test2 : String
+    , answer : String
+    }
+
+
+update : () -> Model -> Model
+update _ model =
+    model
+
+
+view : Model -> Html ()
+view model =
+    div []
+        [ h1 []
+            [ text "day 1" ]
+        , p [] [ text model.test1 ]
+        , p [] [ text model.test2 ]
+        , p [] [ text model.answer ]
+        ]
 
 
 testData1 =
@@ -14,10 +47,6 @@ testData1 =
 testData2 =
     """1969
     100756"""
-
-
-testData3 =
-    """100756"""
 
 
 actualData =
@@ -161,7 +190,3 @@ calculateFuelForFuel fuel =
 
     else
         0
-
-
-solve =
-    parseData actualData |> calculateFuel |> String.fromInt
