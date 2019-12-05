@@ -1,7 +1,44 @@
-module Day2 exposing (Day2, solve, solvePart2, solveTestData1)
+module Day2 exposing (init)
 
 import Array exposing (Array)
+import Browser
+import Html exposing (Html, div, h1, p, text)
 import List.Extra
+
+
+main =
+    Browser.sandbox { init = init, update = update, view = view }
+
+
+init : Model
+init =
+    { test1 = solveTestData1
+    , answerPart1 = solvePart1
+    , answerPart2 = solvePart2
+    }
+
+
+type alias Model =
+    { test1 : String
+    , answerPart1 : String
+    , answerPart2 : String
+    }
+
+
+update : () -> Model -> Model
+update _ model =
+    model
+
+
+view : Model -> Html ()
+view model =
+    div []
+        [ h1 []
+            [ text "day 2" ]
+        , p [] [ text model.test1 ]
+        , p [] [ text model.answerPart1 ]
+        , p [] [ text model.answerPart2 ]
+        ]
 
 
 testData =
@@ -176,7 +213,7 @@ run initialState =
             -1
 
 
-solve =
+solvePart1 =
     actualDataPart1 |> parseData |> run |> String.fromInt
 
 
@@ -193,10 +230,6 @@ genOptions =
             List.range 0 99
     in
     List.Extra.lift2 (\n v -> ( n, v )) nouns verbs
-
-
-testOptions =
-    [ ( 12, 2 ) ]
 
 
 solvePart2 =
